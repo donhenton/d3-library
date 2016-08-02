@@ -21,14 +21,14 @@ export default class HorizontalBarChart {
         this.props = props;
         this.context = id;
         this.intervals = [];
-        this.data = data;
-        this.createChart();
+         
+        this.createChart(data);
 
 
 
     }
 
-    createChart()
+    createChart(data)
     {
         let me = this;
         this.svg = d3.select(me.element).append('svg')
@@ -48,25 +48,25 @@ export default class HorizontalBarChart {
                 .attr('stroke-width', 1);
 
 
-        this.build();
+        this.build(data);
 
     }
 
-    build()
+    build(data)
     {
         let self = this;
-        let state = this;
+         
         this.xScale = d3_scale.scaleLinear()
                 .domain([0, 100])
                 .range([0, this.props.width]);
         //set the height of the horoxaontal bar
-        //this.barHeight = this.props.height / state.data.length;
+        
         //if you want to have a max size based on the height of the bars with a data set with 2 entries
-        this.barHeight = this.data.length < 2 ? this.props.height / 2 : this.props.height / this.data.length;
+        this.barHeight =  data.length < 2 ? this.props.height / 2 : this.props.height /  data.length;
 
         self.groups = d3.select('#' + self.context)
                 .selectAll('g.group-content')
-                .data(state.data);
+                .data(data);
         //enter statement
         self.groupsEnter = self.groups
                 .enter()
@@ -147,8 +147,7 @@ export default class HorizontalBarChart {
     update() {
         //sets the tranlation depending how many bars there are
         let self = this;
-        let state = this;
-
+       
         let rectGroups = d3.select('#' + self.context)
                 .selectAll('.rect-content')
 
