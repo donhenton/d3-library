@@ -1,0 +1,137 @@
+
+.tabContainer
+{
+    margin-top: 10px;
+    width: 1100px;
+    height: 450px;
+
+    .tabBar
+    {
+        width:1100px;
+        height: 70px;
+        padding-left: 70px;
+        background: $blue-color;
+        overflow: hidden;
+
+        .demo-tab {
+            position: relative;
+            cursor: pointer;
+            float: left;
+            padding: 18px 40px 16px 18px;
+            background: #bfc5c8;
+            margin: 18px 1px 0;
+            width: 262px;
+
+
+            .demo-tab-text{
+                height: 17px;
+                width: 260px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                color: $red-color;
+                font-size: 14px;
+                -webkit-touch-callout: none; /* iOS Safari */
+                -webkit-user-select: none;   /* Chrome/Safari/Opera */
+                -khtml-user-select: none;    /* Konqueror */
+                -moz-user-select: none;      /* Firefox */
+                -ms-user-select: none;       /* Internet Explorer/Edge */
+                user-select: none;           /* Non-prefixed version, currently
+                                                not supported by any browser */
+            }
+
+            &:first-child {
+                border-radius: 10px 0 0 0;
+            }
+
+            &.active-tab {
+                background: white;
+            }
+
+            .tab-close {
+                position: absolute;
+                right: 14px;
+                top: 15px;
+                height: 20px;
+                width: 20px;
+                border: 1px solid transparent;
+                border-radius: 100%;
+
+                .tab-close-x {
+                    position: absolute;
+                    left: 4px;
+                    top: 2px;
+                    color: $red-color; 
+                    background-size: 12px 12px;
+                    height: 12px;
+                    width: 12px;
+                }
+
+                &:hover {
+                    border: 1px solid $red-color;
+                }
+            }
+
+        }
+
+        .add-tab {
+            position: relative;
+            cursor: pointer;
+            float: left;
+            background: $red-color;
+            margin: 18px 1px 0;
+            width: 45px;
+            height: 50px;
+            border-radius: 0 10px 0 0;
+
+            .add-tab-icon-wrap {
+                cursor: pointer;
+                position: absolute;
+                left: 10px;
+                top: 15px;
+                height: 22px;
+                width: 22px;
+                border-radius: 100%;
+                background: white;
+            }
+            .add-tab-icon {
+                cursor: pointer;
+                text-align: center;
+                color: $red-color;
+                font-size: 22px;
+
+            }
+
+            &.add-tab-standalone
+            {
+                border-radius: 0;
+            }
+        }
+    }
+
+}
+
+
+.tabBody
+{
+    width:1100px;
+    height: 400px;
+    margin-top: 2px;
+    border: thin solid $red-color;
+    text-align: center;
+    padding-top: 195px;
+
+    .tabBody-inner
+    {
+
+
+
+    }
+}
+
+
+
+
+
+
+
