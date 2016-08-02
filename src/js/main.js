@@ -7,10 +7,12 @@ var data1 = [
         {"name": "United Kingdom", "percentage": 9, color: '#00AEEF'},
         {"name": "Canada", "percentage": 23, color: '#1EAE5D'},
         {"name": "Brazil", "percentage": 3, color: '#FCBC19'},
+        
         {"name": "India", "percentage": 3, color: '#A9CF38'}, ]
 
-var data2 = data1.filter((row) => 
+var data2 = data1.map((r) => 
 {  
+    let row = JSON.parse(JSON.stringify(r));
     row.percentage = row.percentage + 20;
     return row;
 })
@@ -18,6 +20,8 @@ var data2 = data1.filter((row) =>
 data2 = data2.filter((row) => {
     return row.name.indexOf('United') > -1;
 })
+
+data2.push({"name": "Zanadu", "percentage": 23, color: '#ffaadd'})
 
 var choices = [data1,data2]
 

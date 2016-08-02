@@ -21,7 +21,7 @@ export default class HorizontalBarChart {
         this.props = props;
         this.context = id;
         this.intervals = [];
-         
+        this.keyfunction = function(d){ return d.color }; 
         this.createChart(data);
 
 
@@ -66,7 +66,7 @@ export default class HorizontalBarChart {
 
         self.groups = d3.select('#' + self.context)
                 .selectAll('g.group-content')
-                .data(data);
+                .data(data,this.keyfunction);
         //enter statement
         self.groupsEnter = self.groups
                 .enter()
