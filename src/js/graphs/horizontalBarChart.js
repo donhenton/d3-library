@@ -1,7 +1,5 @@
 import * as d3 from 'd3';
 import * as d3_scale from 'd3-scale';
-import 'd3-selection-multi';
-
 
 
 export default class HorizontalBarChart {
@@ -35,8 +33,11 @@ export default class HorizontalBarChart {
         let me = this;
         this.svg = d3.select(me.element).append('svg')
                 .attr('id', me.context)
-                .attr('width', me.props.width)
-                .attr('height', me.props.height);
+                .attr('width', me.props.width+10)
+                .style('background-color', 'white')
+                .style('border', 'thin solid black')
+                .style('padding','5px')
+                .attr('height', me.props.height+10);
 
         this.svg.append('defs')
                 .append('pattern')
