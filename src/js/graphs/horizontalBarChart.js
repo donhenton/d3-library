@@ -105,12 +105,18 @@ export default class HorizontalBarChart {
                     return d.color;
                 })
                 .style('opacity', 1)
+                .attr('transform', 'translate(0,23)')
+                .attr('height', (self.barHeight - 22))
+                .attr('width',0)
+                .transition()
+                .duration(500)
+                .delay(100)
                 .attr(
                         'width', function (d, i) {
                             return self.xScale(d.percentage);
                         })
-                .attr('height', (self.barHeight - 22))
-                .attr('transform', 'translate(0,23)')
+                
+                
 
         //name of each bar
         self.contentGroups
@@ -154,12 +160,17 @@ export default class HorizontalBarChart {
 
         rectGroupsTransition
                 .select('.bar')
- 
+                .attr('transform', 'translate(0,23)')
+                .attr('height', (self.barHeight - 22))
+                .attr('width',0)
+                .transition()
+                .duration(500)
+                .delay(100)
                 .attr(
                         'width', function (d, i) {
                             return self.xScale(d.percentage);
                         })
-                .attr('height', (self.barHeight - 22))
+                
         rectGroupsTransition
                 .select('.background-bar')
                 .attr('height', (self.barHeight - 22))
