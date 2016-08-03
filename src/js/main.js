@@ -15,3 +15,6 @@ $(document).ready(
         $('#updatePieData').on('click',updateP);
          
     });
+// http://jsfiddle.net/vfkSs/1/
+// http://jsfiddle.net/vfkSs/2/
+// http://stackoverflow.com/questions/17222711/d3-js-updating-a-pie-with-lables
