@@ -21,7 +21,9 @@ export default class HorizontalBarChart {
         this.props = props;
         this.context = id;
         this.intervals = [];
-        this.keyfunction = function(d){ return d.color }; 
+        this.keyfunction = function (d) {
+            return d.color
+        };
         this.createChart(data);
 
 
@@ -55,23 +57,23 @@ export default class HorizontalBarChart {
     build(data)
     {
         let self = this;
-         
+
         this.xScale = d3_scale.scaleLinear()
                 .domain([0, 100])
                 .range([0, this.props.width]);
         //set the height of the horoxaontal bar
-        
+
         //if you want to have a max size based on the height of the bars with a data set with 2 entries
-        this.barHeight =  data.length < 2 ? this.props.height / 2 : this.props.height /  data.length;
+        this.barHeight = data.length < 2 ? this.props.height / 2 : this.props.height / data.length;
 
         self.groups = d3.select('#' + self.context)
                 .selectAll('g.group-content')
-                .data(data,this.keyfunction);
+                .data(data, this.keyfunction);
         //enter statement
         self.groupsEnter = self.groups
                 .enter()
                 .append('g')
-                .attr('class', 'group-content');
+                .attr('class', 'group-content')
         //groups for each item
         self.contentGroups = self.groupsEnter
                 .append('svg:g')
@@ -86,10 +88,10 @@ export default class HorizontalBarChart {
                 .append('rect')
                 .attr('class', 'background-bar')
                 .attr('width', self.props.width)
-                .attr('height', 0)
+                .attr('height', (self.barHeight - 22))
                 .attr('transform', "translate(0,23)")
                 .attr('fill', 'url(#diagonalStripes)')
-                .style('opacity', 0);
+                .style('opacity', 1);
 
 
 
@@ -102,9 +104,12 @@ export default class HorizontalBarChart {
                 .style('fill', function (d, i) {
                     return d.color;
                 })
-                .style('opacity', 0)
-                .attr('width', 0)
-                .attr('height', 0)
+                .style('opacity', 1)
+                .attr(
+                        'width', function (d, i) {
+                            return self.xScale(d.percentage);
+                        })
+                .attr('height', (self.barHeight - 22))
                 .attr('transform', 'translate(0,23)')
 
         //name of each bar
@@ -115,7 +120,7 @@ export default class HorizontalBarChart {
                 .style('font-family', "'graphikRegular', Helvetica, Arial, sans-serif")
                 .style('fill', "#4d4e54")
                 .style('font-size', '13px')
-                .style('opacity', 0)
+                .style('opacity', 1)
                 .text(function (d) {
                     return d.name;
                 });
@@ -131,101 +136,59 @@ export default class HorizontalBarChart {
                 .style('font-family', "'graphikRegular', Helvetica, Arial, sans-serif")
                 .style('fill', "#4d4e54")
                 .style('font-size', '13px')
-                .style('opacity', 0)
+                .style('opacity', 1)
                 .text(function (d) {
                     return d.percentage + '%';
                 });
 
+        self.groups.exit().remove();
+////////////////////////
+        let rectGroupsTransition = self.groups.transition();
+        // .selectAll('.rect-content')
 
-
-
-        this.update();
-
-
-    }
-
-    update() {
-        //sets the tranlation depending how many bars there are
-        let self = this;
-       
-        let rectGroups = d3.select('#' + self.context)
-                .selectAll('.rect-content')
-
-
-        rectGroups
-                .transition()
+        rectGroupsTransition
+                .select('.rect-content')
                 .attr('transform', function (d, i) {
                     return "translate(0," + i * self.barHeight + ")";
                 });
-        //sets / resets colored bars to new position / height / width
-        rectGroups
+
+        rectGroupsTransition
                 .select('.bar')
-                .style('fill', function (d, i) {
-                    return d.color;
-                })
-                .attr('transform', 'translate(0,23)')
-                .transition()
+ 
                 .attr(
                         'width', function (d, i) {
                             return self.xScale(d.percentage);
                         })
                 .attr('height', (self.barHeight - 22))
-                .transition()
-                .style('opacity', 1);
-        //sets / resets the position and height of the background bars
-        rectGroups
+        rectGroupsTransition
                 .select('.background-bar')
-                .attr('transform', 'translate(0,23)')
-                .transition()
                 .attr('height', (self.barHeight - 22))
-                .transition()
-                .style('opacity', 1);
-        //changes the label with the data
-        //11111
-        rectGroups
-                .select('.label')
-                .attr('transform', 'translate(0,18)')
-                .attr('title', function (d, i) {
-                    return d.name;
-                })
-                .transition()
-                .delay(200)
-                .style('opacity', 1)
-                .text(function (d) {
-                    let t = "N/A"
-                    if (!d.name)
-                    {
-                        return t;
-                    }
-                    if ( d.name.length < 24)
-                    {
-                        t = d.name;
-                    }
-                    else
-                    {
-                        t = d.name.substring(0,23)+"..."
-                    }
-                     
-                    return t;
-                });
-
-        //changes the label with the data
-        rectGroups
+ 
+        rectGroupsTransition
                 .select('.percent')
                 .attr('transform', function () {
                     return "translate(" + self.props.width + ",18)";
                 })
                 .attr('text-anchor', 'end')
-                .transition()
-                .delay(200)
-                .style('opacity', 1)
                 .text(function (d) {
                     return d.percentage == 0.5 ? '<0.5%' : d.percentage + '%';
                 });
-        //remove excess
-        self.groups.exit().remove();
+
+        rectGroupsTransition
+                .select('.label')
+                .attr('transform', 'translate(0,18)')
+                .attr('title', function (d, i) {
+                    return d.name;
+                })
+                 
+                .text(function (d) {
+                     return d.name
+                });
+
 
     }
+
+ 
 }
 
 
