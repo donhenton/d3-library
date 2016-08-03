@@ -21,7 +21,7 @@ export default class PieChartDemo {
         })
 
         this.data2 = this.data2.filter((row) => {
-            return row.name.indexOf('United') > -1;
+            return (row.name.indexOf('US') > -1 || row.name.indexOf('UK') > -1);
         })
 
         this.data2.push({"name": "Fr", "percentage": 95, color: '#ffaadd'})

@@ -7,9 +7,11 @@ var pDemo = null;
 
 $(document).ready(
     function () {
-        //hDemo = new HorizontalDemo();
-        //var update = hDemo.updateData.bind(hDemo);
-        //$('#updateHorizontalData').on('click',update);
-        pDemo = new PieChartDemo();
+        let hDemo = new HorizontalDemo();
+        let updateH = hDemo.updateData.bind(hDemo);
+        $('#updateHorizontalData').on('click',updateH);
+        let pDemo = new PieChartDemo();
+        let updateP = pDemo.updateData.bind(pDemo);
+        $('#updatePieData').on('click',updateP);
          
     });
