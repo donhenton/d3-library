@@ -126,7 +126,7 @@ export default class PieChart {
                 .append("text")
                 .attr("class", 'legend-text')
                 .attr("text-anchor", "left")
-                //
+                .attr("fill-opacity",1)
                 .attr("fill", "black")
                 .attr("font-size", "15px")
                 .attr('transform', function (d, i)
@@ -136,6 +136,12 @@ export default class PieChart {
                 .text(function (d) {
                     return d.name + " (" + d.percentage + "%)";
                 });
+                
+        textGroup.transition().duration(200).attr("fill-opacity",.5)        
+         .text(function (d) {
+                    return d.name + " (" + d.percentage + "%)";
+                }).attr("fill", "red") 
+         .transition().duration(600).attr("fill-opacity",1).attr("fill", "black")           
 
         circleGroup.enter()
                 .append('circle')
