@@ -10,7 +10,7 @@ import PieChart from './../graphs/pieChart'
             {"name": "US", "percentage": 61, color: '#F79221'},
             {"name": "UK", "percentage": 9, color: '#00AEEF'},
             {"name": "Can", "percentage": 20, color: '#1EAE5D'},
-            {"name": "Br", "percentage": 5, color: '#FCBC19'},
+            {"name": "Br", "percentage": 5, color: '#d42222'},
             {"name": "Ind", "percentage": 5, color: '#A9CF38'}, ]
 
 

@@ -99,7 +99,7 @@ export default class PieChart {
 
     createLegend(data)
     {
-
+        data = data.sort(function(a,b){return a.percentage < b.percentage})
         let self = this;
         let legendGroup = this.svg.append('g').attr("class", 'legend-group')
         let textGroup = this.svg.selectAll("text.legend-text").data(data, self.keyfunction)
@@ -143,7 +143,7 @@ export default class PieChart {
                 .attr("r", 4)
                 .attr(
                         'transform', function (d, i) {
-                            return "translate( 400, " + (70 + (i * 30)) + ")"
+                            return "translate( 400, " + (65 + (i * 30)) + ")"
 
                         })
                 .attr('fill', function (d, i) {
