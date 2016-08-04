@@ -1,6 +1,6 @@
 import HorizontalChart from './../graphs/horizontalBarChart'
 
-        export default class HorizontalDemo {
+export default class HorizontalDemo {
 
     constructor()
     {

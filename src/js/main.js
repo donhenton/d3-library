@@ -1,8 +1,10 @@
 //import $ from 'jquery';
 import HorizontalDemo from './demos/horizontalDemo';
 import PieChartDemo from './demos/pieChartDemo'
+import LineChartDemo from './demos/lineChartDemo'
 var hDemo = null;
 var pDemo = null;
+var lDemo = null;
 
 
 $(document).ready(
@@ -13,6 +15,7 @@ $(document).ready(
         let pDemo = new PieChartDemo();
         let updateP = pDemo.updateData.bind(pDemo);
         $('#updatePieData').on('click',updateP);
+        lDemo = new LineChartDemo();
          
     });
 // http://jsfiddle.net/vfkSs/1/
