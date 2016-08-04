@@ -21,7 +21,8 @@ import * as d3 from 'd3';
         let parseDate = d3.timeParse("%Y-%m-%d");
         let myDate = new Date("06/15/2014");
         myDate.setDate(myDate.getDate() + this.rand(20));
-        for (var x = 0; x < 15; x++) {
+        let dCount = 20 + this.rand(10);
+        for (var x = 0; x < dCount; x++) {
             myDate.setDate(myDate.getDate() + 1);
             var d = d3_time_format.timeFormat("%Y-%m-%d")(myDate);
             //   console.log(formatTime)
@@ -36,5 +37,19 @@ import * as d3 from 'd3';
     rand(max) {
         return Math.floor(Math.random() * (max + 1))
     }
+    
+    
+    
+    updateData()
+    {
+        let newData = this.getData();
+        this.lchart.updateData(newData);
+        
+        
+        
+        
+    }
+    
+    
 
 }

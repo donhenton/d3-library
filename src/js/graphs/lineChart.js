@@ -24,18 +24,19 @@ export default class LineChart {
         this.parseDate = this.dateFormatter.parse;
         this.delay = 200;
         this.div = d3.select("body").append("div")	// declare the properties for the div used for the tooltips
-        .attr("class", "tooltip")				// apply the 'tooltip' class
-        .style("opacity", 0);
-        
+                .attr("class", "tooltip")				// apply the 'tooltip' class
+                .style("opacity", 0);
+
         this.greenColor = "#667467";
         this.redColor = "#963019";
+        this.blueColor = "#16174f";
 
 //        $blue-color: #16174f;
 //$red-color: #963019;
 //$white-color: #f6f1ed; //this will have black text all others white
 //$green-color: #667467;
 //        
-        
+
         this.keyFunction = function (d) {
 
             return  d.date;
@@ -77,7 +78,7 @@ export default class LineChart {
                 .attr("shape-rendering", "crispEdges")
                 .attr("d", this.valueline(this.data));
 
-         this.doDots();
+        this.doDots();
 
     }
 
@@ -85,7 +86,7 @@ export default class LineChart {
     {
         let dots = this.svgGroup.selectAll(".dot").data(this.data, this.key);
         let self = this;
-        dots.attr("fill", "blue");
+       // dots.attr("fill", this.blueColor); 
         dots.enter().append("circle")
                 .attr("fill", this.greenColor)
                 .attr("r", 5)
@@ -95,7 +96,7 @@ export default class LineChart {
                 })
                 .attr("cy", function (d) {
                     return self.y(d.data);
-                })			 
+                })
                 // Tooltip stuff after this
                 .on("mouseover", function (d) {
                     self.div.transition()
@@ -118,10 +119,10 @@ export default class LineChart {
         dots.transition().duration(self.delay)
                 .attr("r", 5)
                 .attr("cx", function (d) {
-                    return x(d.date);
+                    return self.x(d.date);
                 })
                 .attr("cy", function (d) {
-                    return y(d.data);
+                    return self.y(d.data);
                 })
     }
 
@@ -137,7 +138,7 @@ export default class LineChart {
                 return d.data;
             })]);
 
-        let xAxis =
+        this.xAxis =
                 d3.axisBottom()
                 .scale(this.x).tickPadding(15)
                 .ticks(8)
@@ -149,20 +150,56 @@ export default class LineChart {
                 .tickSizeOuter([20])
         //  .orient("bottom");
 
-        let yAxis = d3.axisLeft().scale(this.y)
+        this.yAxis = d3.axisLeft().scale(this.y)
                 .ticks(8)
 
 
         this.svgGroup.append("g")
                 .attr("class", "x axis")
                 .attr("transform", "translate(0," + (this.props.height - 45) + ")")
-                .call(xAxis);
+                .call(this.xAxis);
 
         // Add the Y Axis
         this.svgGroup.append("g")
                 .attr("class", "y axis")
                 // .attr("transform", "translate(0,15)")
-                .call(yAxis);
+                .call(this.yAxis);
     }
+    
+    
+    updateData(data) {
+
+
+    let self = this;
+    this.data = data;
+    
+    this.x.domain(d3.extent(data, function (d) {
+        return d.date;
+    }));
+    this.y.domain([0, d3.max(data, function (d) {
+            return d.data;
+        })]);
+
+    let svg2 = this.svgGroup.transition();
+    //console.log( svg2.select(".line").duration(750))
+
+    svg2.select(".line")   // change the line
+            .duration(this.delay)
+            .attr("d", this.valueline(data));
+    svg2.select(".x.axis") // change the x axis
+            .duration(this.delay)
+            .call(this.xAxis);
+    svg2.select(".y.axis") // change the y axis
+            .duration(this.delay)
+            .call(this.yAxis);
+
+
+    this.doDots();
+}
+    
+    
+    
+    
+    
 
 }

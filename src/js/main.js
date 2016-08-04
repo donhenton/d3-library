@@ -15,7 +15,9 @@ $(document).ready(
         let pDemo = new PieChartDemo();
         let updateP = pDemo.updateData.bind(pDemo);
         $('#updatePieData').on('click',updateP);
-        lDemo = new LineChartDemo();
+        let lDemo = new LineChartDemo();
+        let updateL = lDemo.updateData.bind(lDemo);
+        $('#updateLineData').on('click',updateL);
          
     });
 // http://jsfiddle.net/vfkSs/1/
