@@ -80,10 +80,10 @@ export default class PieChart {
                 })
                 .attr("text-anchor", "middle")
                 .attr("font-weight", "bold")
-                .attr("fill", "black")
+                .attr("fill", "#ffffee")
                 .attr("font-size", "10px")
                 .text(function (d) {
-                    return d.data.name + "(" + d.data.percentage + ")";
+                    return d.data.name ;
                 });
 
 
@@ -102,8 +102,8 @@ export default class PieChart {
         data = data.sort(function(a,b){return a.percentage < b.percentage})
         let self = this;
         let legendGroup = this.svg.append('g').attr("class", 'legend-group')
-        let textGroup = this.svg.selectAll("text.legend-text").data(data, self.keyfunction)
-        let circleGroup = this.svg.selectAll(".legend-circle").data(data, self.keyfunction)
+        let textGroup = this.svg.selectAll("text.legend-text").data(data, self.keyfunction);
+        let circleGroup = this.svg.selectAll(".legend-circle").data(data, self.keyfunction);
         legendGroup.append("text")
                 .attr("text-anchor", "left")
                 .attr("fill", "black")
@@ -164,7 +164,7 @@ export default class PieChart {
             return "translate(" + self.labelArc.centroid(d) + ")";
         })
                 .text(function (d) {
-                    return d.data.name + "(" + d.data.percentage + ")";
+                    return d.data.name ;
                 });
 
     }

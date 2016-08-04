@@ -20,7 +20,7 @@ import PieChart from './../graphs/pieChart'
         })
          
         let temp = [];
-        let vals = [80, 15];
+        let vals = [45, 25];
         let self = this;
         this.data2.forEach((r, i) =>
         {
@@ -28,7 +28,7 @@ import PieChart from './../graphs/pieChart'
             row.percentage = vals[i];
              temp.push(row);
         })
-        temp.push({"name": "Fr", "percentage": 5, color: '#ffaadd'})
+        temp.push({"name": "Fr", "percentage": 30, color: '#ffaadd'})
         this.data2 = temp;
 
 
