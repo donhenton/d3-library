@@ -16,8 +16,9 @@ $(document).ready(
         let updateP = pDemo.updateData.bind(pDemo);
         $('#updatePieData').on('click',updateP);
         let lDemo = new LineChartDemo();
-        let updateL = lDemo.updateData.bind(lDemo);
-        $('#updateLineData').on('click',updateL);
+        let lineStarter = lDemo.startUpdate.bind(lDemo);
+        window.setInterval(lineStarter,1500)
+         
          
     });
 // http://jsfiddle.net/vfkSs/1/
