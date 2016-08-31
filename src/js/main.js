@@ -2,6 +2,7 @@
 import HorizontalDemo from './demos/horizontalDemo';
 import PieChartDemo from './demos/pieChartDemo'
 import LineChartDemo from './demos/lineChartDemo'
+import DoubleBarDemo from './demos/doubleBarDemo'
 var hDemo = null;
 var pDemo = null;
 var lDemo = null;
@@ -16,6 +17,7 @@ $(document).ready(
         let updateP = pDemo.updateData.bind(pDemo);
         $('#updatePieData').on('click',updateP);
         let lDemo = new LineChartDemo();
+        let dDemo = new DoubleBarDemo();
         let lineStarter = lDemo.startUpdate.bind(lDemo);
         window.setInterval(lineStarter,1500)
          

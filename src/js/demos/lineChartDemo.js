@@ -36,7 +36,7 @@ export default class LineChartDemo {
 
     startUpdate()
     {
-        console.log("hit")
+       // console.log("hit")
         this.getData();
         if (this.dataArray.length > 51)
         {
