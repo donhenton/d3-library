@@ -15,14 +15,14 @@ export default class DoubleBarChart {
      * id    -- stting that will be assigned as an id to the svg element
      * data  --  
      * 
-     sampleData = {colors: ['#dd0000','#00dd00'], data: [
-            {"name": "United States of America", "percentages": [61.7,21.6]},
-            {"name": "United Kingdom", "percentages": [49.0,45.21]},
-            {"name": "Canada", "percentages": [34.2,63.0]},
-            {"name": "Brazil", "percentages": [8,23.8]},
-            {"name": "India", "percentages": [75.2,53.2]}, ]}
-        
-        the colors are arranged major index 0, minor index 1 in the arrays
+     sampleData = {colors: ['#dd0000','#00dd00'], graphTitle: 'title',data: [
+     {"name": "United States of America", "percentages": [61.7,21.6]},
+     {"name": "United Kingdom", "percentages": [49.0,45.21]},
+     {"name": "Canada", "percentages": [34.2,63.0]},
+     {"name": "Brazil", "percentages": [8,23.8]},
+     {"name": "India", "percentages": [75.2,53.2]}, ]}
+     
+     the colors are arranged major index 0, minor index 1 in the arrays
      * 
      * 
      * 
@@ -87,20 +87,37 @@ export default class DoubleBarChart {
                 .domain([0, 100])
                 .range([0, this.props.width]);
 
-        let fullBarBlockDisp = this.props.height / self.dataCount;
+        let fullBarBlockDisp = (0.8* this.props.height )/ self.dataCount;
         let barDisp = fullBarBlockDisp / 2;
         let barHeight = fullBarBlockDisp / 4; //3 sections text, major bar , minor bar
 
+        
+        //title
+        d3.select('#' + self.context)
+        .append("text")
+         .attr('class', 'graph-title')
+         .attr('text-anchor', 'end')
+         .attr('transform', "translate("+(this.props.width-5)+",10)")
+         .style('font-family', "'graphikRegular', Helvetica, Arial, sans-serif")
+         .style('fill', "#4d4e54")
+         .style('font-size', '13px')
+         .style('opacity', 1)
+         .text(data.title);
 
-        self.groups  = d3.select('#' + self.context)
-                .selectAll('g.group-content')
+        //the holder to allow shifting the graph
+        let graphHolder = d3.select('#' + self.context)
+                .append('g')
+                .attr('class',"group-holder")
+                .attr('transform', "translate(0," + (0.15* this.props.height ) + ")");
+ 
+        self.groups = graphHolder
+                .selectAll('g.group-block')
                 .data(data.data, this.keyfunction);
         //enter statement
         self.groupsEnter = self.groups
                 .enter()
                 .append('g')
                 .attr('class', 'group-block')
-                .style('border', 'thin solid black')
                 .attr(
                         'transform', function (d, i) {
                             return "translate(0," + i * fullBarBlockDisp + ")";
@@ -124,8 +141,8 @@ export default class DoubleBarChart {
                     return self.majorColor;
                 })
                 .style('opacity', 1)
-                .attr('transform', function(d,i){
-                    return 'translate(0,'+(0.5*fullBarBlockDisp)+')'
+                .attr('transform', function (d, i) {
+                    return 'translate(0,' + (0.5 * fullBarBlockDisp) + ')'
                 })
                 .attr('height', (barHeight))
                 .attr('width', 0)
@@ -137,15 +154,46 @@ export default class DoubleBarChart {
                             return self.xScale(d.percentages[0]);
                         })
 
-     
-     self.groupsEnter.append('rect')
+         self.groupsEnter
+         .append("text")
+         .attr('class', 'label')
+         .attr('transform', "translate(0,18)")
+         .style('font-family', "'graphikRegular', Helvetica, Arial, sans-serif")
+         .style('fill', "#4d4e54")
+         .style('font-size', '13px')
+         .style('opacity', 1)
+         .text(function (d) {
+         return d.name;
+         });
+
+             
+         
+         
+         //percent of bar
+         self.groupsEnter
+         .append("text")
+         .attr('class', 'percent')
+         .attr('text-anchor', 'end')
+         .attr('transform', function (d, i) {
+         return "translate(" + self.props.width + ",18)";
+         })
+         .style('font-family', "'graphikRegular', Helvetica, Arial, sans-serif")
+         .style('fill', "#4d4e54")
+         .style('font-size', '13px')
+         .style('opacity', 1)
+         .text(function (d) {
+         return d.percentages[0] + '%';
+         });
+          
+
+        self.groupsEnter.append('rect')
                 .attr('class', 'minor-bar')
                 .style('fill', function (d, i) {
                     return self.minorColor;
                 })
                 .style('opacity', 1)
-                .attr('transform', function(d,i){
-                    return 'translate(0,'+(0.75*fullBarBlockDisp)+')'
+                .attr('transform', function (d, i) {
+                    return 'translate(0,' + (0.75 * fullBarBlockDisp) + ')'
                 })
                 .attr('height', (barHeight))
                 .attr('width', 0)
@@ -156,7 +204,7 @@ export default class DoubleBarChart {
                         'width', function (d, i) {
                             return self.xScale(d.percentages[1]);
                         })
-
+ 
     }
-
+ 
 }

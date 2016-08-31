@@ -7,7 +7,7 @@ export default class DoubleBarDemo {
 
  
 
-        this.data1 = {colors: ['#dd0000','#00dd00'], data: [
+        this.data1 = {colors: ['#dd0000','#00dd00'], title: "Sampledfdfdfdf",data: [
             {"name": "United States of America", "percentages": [61.7,21.6]},
             {"name": "United Kingdom", "percentages": [49.0,45.21]},
             {"name": "Canada", "percentages": [34.2,63.0]},
