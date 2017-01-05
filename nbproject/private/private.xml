@@ -2,14 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/Users/dhenton/NetBeansProjects/d3-library/src/sass/components/_doubleGraph.scss</file>
-            <file>file:/Users/dhenton/NetBeansProjects/d3-library/public_html/index.html</file>
-            <file>file:/Users/dhenton/NetBeansProjects/d3-library/src/js/graphs/horizontalBarChart.js</file>
-            <file>file:/Users/dhenton/NetBeansProjects/d3-library/src/js/demos/doubleBarDemo.js</file>
-            <file>file:/Users/dhenton/NetBeansProjects/d3-library/src/sass/style.scss</file>
-            <file>file:/Users/dhenton/NetBeansProjects/d3-library/src/js/main.js</file>
-            <file>file:/Users/dhenton/NetBeansProjects/d3-library/src/js/graphs/doubleBarChart.js</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

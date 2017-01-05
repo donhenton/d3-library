@@ -28,16 +28,49 @@ export default class HorizontalBarChart {
 
     }
 
+    resize()
+    {
+        if (!this.svg)
+        {
+            return;
+        }
+        let self = this;
+        //change the scaling
+        this.xScale = d3_scale.scaleLinear()
+                .domain([0, 100])
+                .range([0, this.props.width()*0.985]);
+        //adjust the data bars
+        this.svg.selectAll('.bar')
+                .attr(
+                        'width', function (d, i) {
+                            return self.xScale(d.percentage);
+                        })
+        //adjust the background bar                
+        this.svg.selectAll('.background-bar')
+                .attr('width', self.props.width()*0.985) 
+        
+        
+        //move the percent labels
+         this.svg.selectAll('.percent')
+                   .attr('transform', function (d, i) {
+                    return "translate(" + self.props.width()*0.975 + ",18)";
+                })  
+        
+        
+                         
+                        
+    }
+
     createChart(data)
     {
         let me = this;
         this.svg = d3.select(me.element).append('svg')
                 .attr('id', me.context)
-                .attr('width', me.props.width+10)
-                .style('background-color', 'white')
-                .style('border', 'thin solid black')
-                .style('padding','5px')
-                .attr('height', me.props.height+10);
+                .attr('width', me.props.width() + 20)
+               // .style('background-color', 'white')
+                // .style('border', 'thin solid black')
+                .style('padding', '15px')
+                .attr('height', me.props.height() + 50);
 
         this.svg.append('defs')
                 .append('pattern')
@@ -61,11 +94,11 @@ export default class HorizontalBarChart {
 
         this.xScale = d3_scale.scaleLinear()
                 .domain([0, 100])
-                .range([0, this.props.width]);
+                .range([0, this.props.width()]);
         //set the height of the horoxaontal bar
 
         //if you want to have a max size based on the height of the bars with a data set with 2 entries
-        this.barHeight = data.length < 2 ? this.props.height / 2 : this.props.height / data.length;
+        this.barHeight = data.length < 2 ? this.props.height() / 2 : this.props.height() / data.length;
 
         self.groups = d3.select('#' + self.context)
                 .selectAll('g.group-content')
@@ -88,11 +121,14 @@ export default class HorizontalBarChart {
         self.contentGroups
                 .append('rect')
                 .attr('class', 'background-bar')
-                .attr('width', self.props.width)
+                .attr(
+                        'width', function (d, i) {
+                            return self.xScale(100);
+                        })
                 .attr('height', (self.barHeight - 22))
                 .attr('transform', "translate(0,23)")
-                .attr('fill', 'url(#diagonalStripes)')
-                .style('opacity', 1);
+                .attr('fill', 'lightblue')
+                .style('opacity', .33);
 
 
 
@@ -108,7 +144,7 @@ export default class HorizontalBarChart {
                 .style('opacity', 1)
                 .attr('transform', 'translate(0,23)')
                 .attr('height', (self.barHeight - 22))
-                .attr('width',0)
+                .attr('width', 0)
                 .transition()
                 .duration(500)
                 .delay(100)
@@ -116,8 +152,8 @@ export default class HorizontalBarChart {
                         'width', function (d, i) {
                             return self.xScale(d.percentage);
                         })
-                
-                
+
+
 
         //name of each bar
         self.contentGroups
@@ -138,7 +174,7 @@ export default class HorizontalBarChart {
                 .attr('class', 'percent')
                 .attr('text-anchor', 'end')
                 .attr('transform', function (d, i) {
-                    return "translate(" + self.props.width + ",18)";
+                    return "translate(" + self.props.width()*0.975 + ",18)";
                 })
                 .style('font-family', "'graphikRegular', Helvetica, Arial, sans-serif")
                 .style('fill', "#4d4e54")
@@ -163,7 +199,7 @@ export default class HorizontalBarChart {
                 .select('.bar')
                 .attr('transform', 'translate(0,23)')
                 .attr('height', (self.barHeight - 22))
-                .attr('width',0)
+                .attr('width', 0)
                 .transition()
                 .duration(500)
                 .delay(100)
@@ -171,15 +207,15 @@ export default class HorizontalBarChart {
                         'width', function (d, i) {
                             return self.xScale(d.percentage);
                         })
-                
+
         rectGroupsTransition
                 .select('.background-bar')
                 .attr('height', (self.barHeight - 22))
- 
+
         rectGroupsTransition
                 .select('.percent')
                 .attr('transform', function () {
-                    return "translate(" + self.props.width + ",18)";
+                    return "translate(" + self.props.width()*0.975 + ",18)";
                 })
                 .attr('text-anchor', 'end')
                 .text(function (d) {
@@ -192,15 +228,14 @@ export default class HorizontalBarChart {
                 .attr('title', function (d, i) {
                     return d.name;
                 })
-                 
+
                 .text(function (d) {
-                     return d.name
+                    return d.name
                 });
 
 
     }
 
- 
 }
 
 
