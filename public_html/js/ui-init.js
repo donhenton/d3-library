@@ -56,38 +56,57 @@ $(document).ready(
 
             });
             /* menu code */
-            
-            
+
+
             /* tab setup */
-            
-            $('.tabs').tabs();
-            
-            
+
+            $('.tabs').tabs({
+               activate: function( event, ui ) {
+                  console.log("ui "+ui.newPanel.selector);
+                 if (ui.newPanel.selector === '#hchart')
+                 {
+                     //TODO use postal to signal to hDemo that you need
+                     //a resize
+                     
+                     
+                 }
+                  
+               },});
+
+//            $('.tabs').bind('tabsshow', function (event, ui) {
+//                switch (ui.index) {
+//                    case 0:
+//                        
+//                        break;
+//                }
+//            });
             /* tab setup */
 
             //http://www.tutorialspoint.com/jqueryui/jqueryui_dialog.htm
             $('#explainDialog').dialog(
                     {
-                        'autoOpen':false,
-                        'title':"Explain",
-                        'resizable':false,
-                        'modal':true,
+                        'autoOpen': false,
+                        'title': "Explain",
+                        'resizable': false,
+                        'modal': true,
                         'dialogClass': 'explainDialog',
-                        'width':500,
-                        'height':350,
-                        'minHeight':350,
+                        'width': 500,
+                        'height': 350,
+                        'minHeight': 350,
                         'draggable': false,
                         'buttons':
                                 {
-                                    Close: function(){ $(this).dialog('close');}
+                                    Close: function () {
+                                        $(this).dialog('close');
+                                    }
                                 }
                     });
 
 
 
         });
-        
-        function showExplainDialog()
-        {
-            $('#explainDialog').dialog("open");
-        }
+
+function showExplainDialog()
+{
+    $('#explainDialog').dialog("open");
+}

@@ -47,7 +47,10 @@ export default class HorizontalBarChart {
                         })
         //adjust the background bar                
         this.svg.selectAll('.background-bar')
-                .attr('width', self.props.width()*0.985) 
+                 .attr(
+                        'width', function (d, i) {
+                            return self.xScale(100);
+                        })
         
         
         //move the percent labels
