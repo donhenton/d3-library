@@ -38,7 +38,7 @@ export default class HorizontalBarChart {
         //change the scaling
         this.xScale = d3_scale.scaleLinear()
                 .domain([0, 100])
-                .range([0, this.props.width()*0.985]);
+                .range([0, this.props.width() * 0.985]);
         //adjust the data bars
         this.svg.selectAll('.bar')
                 .attr(
@@ -47,21 +47,26 @@ export default class HorizontalBarChart {
                         })
         //adjust the background bar                
         this.svg.selectAll('.background-bar')
-                 .attr(
+                .attr(
                         'width', function (d, i) {
                             return self.xScale(100);
                         })
-        
-        
+
+         this.svg.selectAll('.background-rect')
+                .attr(
+                        'width', function (d, i) {
+                            return self.xScale(100);
+                        })
+
         //move the percent labels
-         this.svg.selectAll('.percent')
-                   .attr('transform', function (d, i) {
-                    return "translate(" + self.props.width()*0.975 + ",18)";
-                })  
-        
-        
-                         
-                        
+        this.svg.selectAll('.percent')
+                .attr('transform', function (d, i) {
+                    return "translate(" + self.props.width() * 0.975 + ",18)";
+                })
+
+
+
+
     }
 
     createChart(data)
@@ -70,21 +75,17 @@ export default class HorizontalBarChart {
         this.svg = d3.select(me.element).append('svg')
                 .attr('id', me.context)
                 .attr('width', me.props.width() + 20)
-               // .style('background-color', 'white')
+                // .style('background-color', 'white')
                 // .style('border', 'thin solid black')
                 .style('padding', '15px')
                 .attr('height', me.props.height() + 50);
 
-        this.svg.append('defs')
-                .append('pattern')
-                .attr('id', 'diagonalStripes')
-                .attr('patternUnits', 'userSpaceOnUse')
-                .attr('width', 4)
-                .attr('height', 4)
-                .append('path')
-                .attr('d', 'M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2')
-                .attr('stroke', '#c7d2d8')
-                .attr('stroke-width', 1);
+        this.svg.append('rect')
+                .attr('class', 'background-rect')
+                .attr('height', (me.props.height() + 50))
+                .attr('fill', 'white')
+                .style('opacity', 1);
+
 
 
         this.build(data);
@@ -177,7 +178,7 @@ export default class HorizontalBarChart {
                 .attr('class', 'percent')
                 .attr('text-anchor', 'end')
                 .attr('transform', function (d, i) {
-                    return "translate(" + self.props.width()*0.975 + ",18)";
+                    return "translate(" + self.props.width() * 0.975 + ",18)";
                 })
                 .style('font-family', "'graphikRegular', Helvetica, Arial, sans-serif")
                 .style('fill', "#4d4e54")
@@ -218,7 +219,7 @@ export default class HorizontalBarChart {
         rectGroupsTransition
                 .select('.percent')
                 .attr('transform', function () {
-                    return "translate(" + self.props.width()*0.975 + ",18)";
+                    return "translate(" + self.props.width() * 0.975 + ",18)";
                 })
                 .attr('text-anchor', 'end')
                 .text(function (d) {
